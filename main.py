@@ -1,12 +1,17 @@
 import pygame
 from constants import *
 from logger import log_state    
-
+from player import Player
 def main():
     # game loop
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
+    
+    # initiate player object
+    x = SCREEN_WIDTH/2
+    y = SCREEN_HEIGHT/2
+    player = Player(x, y)
+    
     # created clock object
     clock = pygame.time.Clock()
     dt = 0
@@ -22,9 +27,12 @@ def main():
         # setting up the delta time to seconds        
         delta_time = clock.tick(60)
         dt = delta_time/1000
-    
-    screen.fill('black')
-    pygame.display.flip()
+
+        # drawings
+        screen.fill('black')
+        player.draw(screen)
+        pygame.display.flip()
+
     ver = pygame.version.ver
     sc_height = SCREEN_HEIGHT
     sc_width = SCREEN_WIDTH
