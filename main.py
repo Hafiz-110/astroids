@@ -28,11 +28,14 @@ def main():
         delta_time = clock.tick(60)
         dt = delta_time/1000
 
+        # rotation
+        player.update(dt)
+
         # drawings
         screen.fill('black')
         player.draw(screen)
         pygame.display.flip()
-
+        
     ver = pygame.version.ver
     sc_height = SCREEN_HEIGHT
     sc_width = SCREEN_WIDTH
