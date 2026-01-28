@@ -20,15 +20,34 @@ class Player(CircleShape):
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
 
+    # move
+    def move(self, dt):
+        unit_vector = pygame.Vector2(0, 1)
+        rotated_vector = unit_vector.rotate(self.rotation)      # rotate sideways
+        rotated_with_speed_vector = rotated_vector * PLAYER_SPEED * dt      # adjust the speed
+        self.position += rotated_with_speed_vector      # player movement
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
-
+        
+        # anti-colcwise rotation
+        # a for left
         if keys[pygame.K_a]:
-            # anti-colcwise rotation
-            # a for left
             self.rotate(-dt)
 
+        # clockwise rotation
+        # d for right    
         if keys[pygame.K_d]:
-            # clockwise rotation
-            # d for right
             self.rotate(dt)
+
+        # upward movement
+        # w for up    
+        if keys[pygame.K_w]:
+            self.move(dt)
+
+        # backward movement
+        # s for down
+        if keys[pygame.K_s]:
+            self.move(-dt)            
+
+
