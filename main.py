@@ -3,9 +3,13 @@ from constants import *
 from logger import log_state    
 from player import Player
 def main():
-    # game loop
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    # groups    
+    updatable = pygame.sprite.Group()       # hold the objects that can be upgraded
+    drawable = pygame.sprite.Group()        # hold the objects that can be drawn
+    Player.containers = (updatable, drawable)       # assigned containers before instance
     
     # initiate player object
     x = SCREEN_WIDTH/2
@@ -28,12 +32,14 @@ def main():
         delta_time = clock.tick(60)
         dt = delta_time/1000
 
-        # rotation
-        player.update(dt)
+        # update all updatable objects
+        updatable.update(dt)
 
         # drawings
         screen.fill('black')
-        player.draw(screen)
+        for i in drawable:
+            i.draw(screen)
+            
         pygame.display.flip()
         
     ver = pygame.version.ver
